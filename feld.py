@@ -54,9 +54,8 @@ class Box:
         w,h=rect
         if orientation:
             w,h=h,w
-        #self.spacetotop=np.zeros((self.L,self.L),np.int16)
+        
         acc=np.full(self.L,0,np.int16)
-        #m=[]
         for i in reversed(range(self.L)):
             #acc=np.where(self.feld[i],-1,acc)+1
             acc+=1
@@ -73,7 +72,22 @@ class Box:
                 else:
                     heightfitcount=0
 
-        #return m
+        #something something summed area table. i need to look up how they work again
+        #     # Integral image with a zero-padded top row and left column
+        # s = np.zeros((self.L + 1, self.L + 1), dtype=np.int32)
+        # s[1:, 1:] = self.feld.cumsum(axis=0).cumsum(axis=1)
+
+        # # Occupied-cell count for every h x w window
+        # sums = (
+        #     s[h:, w:]
+        #     - s[:-h, w:]
+        #     - s[h:, :-w]
+        #     + s[:-h, :-w]
+        # )
+
+        # # True exactly where the entire rectangle is empty
+        # return [(int(a),int(b)) for a,b in zip(*np.nonzero(sums == 0))]
+
     
     def mkfieldint(self,edges=False):
         intfield=np.zeros((self.L,self.L),np.int16)
